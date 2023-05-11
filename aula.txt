@@ -1,0 +1,143 @@
+instalando:
+pasta do projeto
+terminal:
+    npm i -g grunt-cli
+    npm init
+    npm i --save-dev grunt
+
+packagejson:
+    scripts:
+        "grunt": "grunt",
+
+cria arquivo:
+    gruntfile.js
+        module.exports = function(grunt) {
+            grunt.initConfig({
+                pkg: grunt.file.readJSON()
+            })
+        }
+    
+
+AULA2:
+module.exports = function(grunt) {
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json')
+    })
+
+    grunt.registerTask('olaGrunt', function() {
+        const done = this.async();
+        setTimeout(function() {   
+        console.log('Olá Grunt')
+        done();
+        }, 3000);
+    })
+
+    grunt.registerTask('default', ['olaGrunt'])
+}
+
+AULA3: COMPILANDO LESS COM Grunt
+    npm install --save-dev grunt-contrib-less
+
+    module.exports = function(grunt) {
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        less: {
+            development: { -> normal para ambiente de desenvolvimento
+                files: {
+                    'main.css': 'main.less'
+                }
+            },
+            production: {  -> minificado para ambiente de produção
+                options: {
+                    compress: true,
+                },
+                files: {
+                    'main.min.css': 'main.less'
+                }
+            }
+        }
+    })
+
+    grunt.loadNpmTasks('grunt-contrib-less');
+
+
+COMPILAR SASS
+    npm i --save-dev grunt-contrib-sass
+
+sass: {
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+                files: {
+                    'main2.css': 'main.scss'
+                }
+            }
+        }
+    
+
+AULA04: EXECUTANDO TAREFAS DE FORMA PARALELA
+    npm i --save-dev gunt-concurrent
+    
+    grunt.loadNpmTasks('grunt-concurrent');
+
+    concurrent: {
+        target: ['olaGrunt', 'less', 'sass']
+    }
+
+    grunt.registerTask('default', ['concurrent']);
+
+
+AULA5: CRIAÇÃO DE SORTEADOR DE NUMERO
+aprender o que é ambiente de desenv e de produc
+
+
+aula6:
+watch grunt
+    npm install --save-dev grunt-contrib-watch  
+
+            watch: {
+            less: {
+                files: ['src/styles/**/*.less'],
+                tasks: ['less:development']
+            }
+        }
+
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.registerTask('default', ['watch']);
+
+
+npm i --save-dev grunt-replace
+
+    grunt.loadNpmTasks('grunt-replace');
+
+replace: {
+            dev: {
+                options: {
+                    patterns: [
+                        {
+                            match: 'ENDERECO_DO_CSS',
+                            replacement: './styles/main.css'
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['src/index.html'],
+                        dest: 'dev/'
+                    }
+                ]
+            }
+        }
+
+minificação:
+    npm install --save-dev grunt-contrib-htmlmin
+
+    https://holly-brian-0ce.notion.site/Grunt-Automa-o-de-tarefas-M-d18-5b19b94e04dc44b7b8f41769e0f7da8c
+    https://holly-brian-0ce.notion.site/Grunt-Automa-o-de-tarefas-M-d18-5b19b94e04dc44b7b8f41769e0f7da8c
+    https://holly-brian-0ce.notion.site/Grunt-Automa-o-de-tarefas-M-d18-5b19b94e04dc44b7b8f41769e0f7da8c
+    https://holly-brian-0ce.notion.site/Grunt-Automa-o-de-tarefas-M-d18-5b19b94e04dc44b7b8f41769e0f7da8c
+    https://holly-brian-0ce.notion.site/Grunt-Automa-o-de-tarefas-M-d18-5b19b94e04dc44b7b8f41769e0f7da8c
+    
